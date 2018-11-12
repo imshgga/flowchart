@@ -1,5 +1,7 @@
 // 将给定url,默认为window.location.href,的查询字符串转换为对象
 export default function parseUrlSearchToObj(url) {
+  if (!url) return {}
+
   url = decodeURI(url || window.location.href)
   let searchStr = /\?([^#]*)/.exec(url)[1] || ''
 
