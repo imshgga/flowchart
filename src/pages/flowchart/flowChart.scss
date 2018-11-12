@@ -1,0 +1,64 @@
+button{
+  border: none;
+
+  height: 28px;
+  line-height: 26px;
+  border: 1px solid #91a4ad;
+  border-radius: 4px;
+  margin-left: 20px;
+  padding: 0px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+
+  &:hover{
+    border-color: #23A2F5;
+  }
+}
+button:focus{
+  outline: none;
+}
+button:active{
+  background-color: #91a4ad;
+  color: #fff;
+}
+
+input{
+  outline: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+  height: 28px;
+  border: 1px solid #91a4ad;
+  line-height: 26px;
+
+  &:hover{
+    border-color: #23A2F5;
+  }
+  &:focus{
+    border-color: #23A2F5;
+  }
+}
+
+.chartItem {
+  background-color: #fff;
+  border: 3px solid #346789;
+  border-radius: 4px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  cursor: move;
+  width: 150px;
+  height: 50px;
+  position: absolute;
+
+  &:hover{
+    outline: 1px solid #00bcd4;
+    // outline: 1px solid red;
+    outline-offset: 10px;
+
+    .operate{
+      display: block!important;
+    }
+  }
+}
