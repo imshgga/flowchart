@@ -13,9 +13,10 @@ const ktv = new plumb.Katavorio({
   bind:seh.addEvent,
   unbind:seh.removeEvent,
   fireEvent:function() {
+      console.log(arguments);
   },
   intersects:seh.intersects,
-  indexOf:seh.indexOf
+  indexOf:seh.indexOf,
 })
 
 export default ktv

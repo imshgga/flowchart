@@ -5,7 +5,6 @@ export default function (container) {
     Endpoint : "Dot",
     EndpointHoverStyle : null,
     connectorStyle : { stroke:"#666" },
-    maxConnections: 1,
       // drag options
     DragOptions: { cursor: "pointer", zIndex: 2000 },
     // default to a gradient stroke from blue to green.

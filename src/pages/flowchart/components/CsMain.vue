@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="CsMain">
+  <div class="CsMain" id="CsMain">
     <div class="zoomWrapper">
       <button type="button" name="button" @click="handleZoom('+')"> + </button>
       <button type="button" name="button" @click="handleZoom('-')"> - </button>
@@ -140,7 +140,6 @@ export default {
             instance.addEndpoint(eid, {
               isSource: true,
               isTarget: false,
-              maxConnections: 1,
               anchor: "BottomCenter",
               endpointStyle: { fill : "#fff", stroke: '#346789', strokeWidth: 1 },
             })
@@ -148,8 +147,7 @@ export default {
             instance.addEndpoint(eid, {
               isSource: false,
               isTarget: true,
-              // maxConnections: 10,
-              maxConnections: 1,
+              maxConnections: -1,
               anchor: "TopCenter",
               endpoint:["Rectangle", {
                 width: 30,
@@ -171,7 +169,7 @@ export default {
           }
         })
       })
-      // instance.revalidate('flowchart-main')
+      instance.revalidate('flowchart-main')
     },
 
     bindEvent () {
@@ -192,12 +190,24 @@ export default {
         _this.updateChartListMapByConnect(info, 'link')
       })
 
+      // 效验是否存在连接,存在时不让连接
+      instance.bind("beforeDrop", function (info) {
+        let connects = instance.getConnections({
+          target: info.targetId,
+        })
+        return !(connects.length)
+      })
+
+      // 取消连接
       instance.bind("connectionDetached", function (info, event) {
         _this.updateChartListMapByConnect(info, 'unlink')
       })
 
-      ktv.droppable('flowchart-main', {
+      // 拖拽添加
+      // ktv.droppable('flowchart-main', {
+      ktv.droppable('CsMain', {
         drop: function (info) {
+          console.log('drop', info)
           // 添加数据
           let {
             chartType,
@@ -240,6 +250,7 @@ export default {
         }
       })
 
+      // 删除功能
       instance.on(container, "click", function (e) {
         if (!e.target.classList.contains('itemDel')) return
 
@@ -266,6 +277,7 @@ export default {
         delete _this.chartListMap[eid]
       })
 
+      // 编辑功能
       instance.on(container, "click", function (e) {
         if (!e.target.classList.contains('itemEdit')) return
 
@@ -284,7 +296,6 @@ export default {
       let instance = this.instance
 
       chartList.forEach(item => {
-        // debugger
         if (item.nodeType === 0 && item.link) { // 开始节点
           let source = item
           let target = this.getElement(item.link)
@@ -424,12 +435,13 @@ export default {
   .flowchart-main{
     height: 800px;
     position: relative;
+    border: 1px solid;
   }
 
   .zoomWrapper{
     position: absolute;
     top: 0px;
-    left: 0px;
+    right: 0px;
     padding: 20px;
     z-index: 100;
 

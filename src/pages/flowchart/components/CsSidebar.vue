@@ -65,17 +65,16 @@ export default {
         chartTypes.forEach((item, i) => {
           if (item.nodeType === 0) {
             instance.addEndpoint(chartItem[i], {
-              isSource: true,
+              isSource: false,
               isTarget: false,
-              maxConnections: 1,
               anchor: "BottomCenter",
               endpointStyle: { fill : "#fff", stroke: '#346789', strokeWidth: 1 },
             })
           } else {
             instance.addEndpoint(chartItem[i], {
               isSource: false,
-              isTarget: true,
-              maxConnections: 10,
+              isTarget: false,
+              maxConnections: 0,
               anchor: "TopCenter",
               endpoint:["Rectangle", {
                 width: 30,
@@ -86,7 +85,7 @@ export default {
 
             ;(item.slots || []).forEach(slot => {
               let endpoint = instance.addEndpoint(chartItem[i], {
-                isSource: true,
+                isSource: false,
                 isTarget: false,
                 anchor: slot.layout,
                 endpointStyle : { fill :slot.color, stroke: "#346789", strokeWidth: 1 },
