@@ -16,9 +16,9 @@
       <div class="title" slot="title">
         为<span class="strong">{{dialog.desc}}</span>节点添加数据
       </div>
-      <div class="inputWrapper" v-for="(value, key) in dialog.payload">
+      <div class="inputWrapper" v-for="(item, key) in dialog.payload">
         <label class="label">
-          <span class="key">{{key}}: </span><input type="text" v-model="dialog.payload[key]">
+          <span class="key">{{item.name}}: </span><input type="text" v-model="dialog.payload[key].value">
         </label>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -169,7 +169,7 @@ export default {
           }
         })
       })
-      instance.revalidate('flowchart-main')
+      // instance.revalidate('flowchart-main')
     },
 
     bindEvent () {
@@ -282,7 +282,7 @@ export default {
         if (!e.target.classList.contains('itemEdit')) return
 
         let eid = (e.target|| e.srcElement).parentNode.parentNode.id
-        let chartData = _this.chartListMap[eid]
+        let chartData = JSON.parse(JSON.stringify(_this.chartListMap[eid]))
 
         _this.dialog = {
           ...chartData,
@@ -351,8 +351,13 @@ export default {
 
     wrapData (item) {
       let eid = item.eid || createEid(item.nodeType)
-      let payload = item.payload || {params: ''}
-      if (payload.remark === undefined) payload.remark = ''
+      let payload = item.payload || {}
+      if (!payload.remark) {
+        payload.remark = {
+          name: '备注',
+          value: ''
+        }
+      }
       let chartItem = {
         ...item,
         eid,

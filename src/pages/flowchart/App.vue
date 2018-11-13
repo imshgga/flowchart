@@ -58,20 +58,20 @@ export default {
 
       let result = {}
       entries.forEach(([eid, item]) => {
+        chartListMap[eid].payload = this.formatPayload(item.payload)
         if (item.link) {
           result = {
             nodeType: item.nodeType,
             nodeName: item.nodeName,
             desc: item.desc,
             yes: chartListMap[item.link],
-            payload: item.payload,
           }
         } else {
           let slots = item.slots || []
           slots.forEach(slot => {
-            let slotId = slot.id
+            let slotType = slot.slotType
             let link = slot.link
-            chartListMap[eid][slotId] = chartListMap[link]
+            chartListMap[eid][slotType] = chartListMap[link]
             delete chartListMap[eid].slots
             delete chartListMap[eid].x
             delete chartListMap[eid].y
@@ -80,6 +80,13 @@ export default {
         }
       })
 
+      return result
+    },
+    formatPayload (payload) {
+      let result = {}
+      Object.keys(payload).forEach(key => {
+        result[key] = payload[key].value
+      })
       return result
     }
   }
