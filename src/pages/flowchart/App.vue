@@ -45,7 +45,7 @@ export default {
 
   methods: {
     handleSubmit () {
-      let chartListMap = this.chartListMap = this.$refs.flowchart.$getChartListMap()
+      let chartListMap = this.chartListMap = this.$refs.flowchart.$getChartMap()
       let chartList = JSON.parse(JSON.stringify(Object.values(chartListMap)))
       let formatedData = this.formatData(chartListMap)
       let meta = this.meta

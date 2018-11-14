@@ -59,36 +59,34 @@ export default {
       let instance= this.instance = getInstance('flowchart-main')
 
       api.getChartList().then(res => {
-        this.$renderChart(res)
+        this.$renderFlowchart(res)
       })
     })
   },
 
   methods: {
-    $renderChart (res) {
-      setTimeout(() => {
-        let map = {}
-        let chartList = res.map(item => {
-          let chartData = this.wrapData(item)
-          let eid = chartData.eid
+    $renderFlowchart (res) {
+      let map = {}
+      let chartList = res.map(item => {
+        let chartData = this.wrapData(item)
+        let eid = chartData.eid
 
-          map[eid] = chartData
-          return chartData
-        })
+        map[eid] = chartData
+        return chartData
+      })
 
-        this.chartListMap = map
-        this.chartList = chartList
+      this.chartListMap = map
+      this.chartList = chartList
 
-        this.$nextTick(() => {
-          this.buildDom()
-          this.initChart(chartList)
-          this.bindEvent()
-          this.initConnect()
-        })
-      }, 0)
+      this.$nextTick(() => {
+        this.buildDom()
+        this.initChart(chartList)
+        this.bindEvent()
+        this.initConnect()
+      })
     },
 
-    $getChartListMap () {
+    $getChartMap () {
       // 绑定坐标
       let keys = Object.keys(this.chartListMap)
       keys.forEach(key => {

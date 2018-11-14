@@ -29,19 +29,23 @@ export default {
   mounted () {
     this.$nextTick(() => {
       let instance = this.instance = getInstance('flowchart-sidebar')
+      console.log('instance', instance)
       api.getChartTypes().then(res => {
-        this.chartTypes = res
-        this.$nextTick(() => {
-          // this.initChartTypes()
-          this.buildDom()
-          this.initChart()
-          this.bindEvent()
-        })
+        this.$renderChartTypes(res)
       })
     })
   },
 
   methods: {
+    $renderChartTypes (chartTypes) {
+      this.chartTypes = chartTypes
+
+      this.$nextTick(() => {
+        this.buildDom()
+        this.initChart()
+        this.bindEvent()
+      })
+    },
     buildDom () {
       let chartTypes = this.chartTypes
       let domArr = chartTypes.map((item, i) => {

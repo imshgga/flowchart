@@ -35,39 +35,46 @@ const payload = {
 
 export const getChartTypes = [
   {
+    groupName: '分组1',
     nodeType: 0,
     desc: '开始',
     payload,
   },
   {
+    groupName: '分组1',
     nodeType: 1,
     desc: '是否首次',
     slots,
     payload,
   },
   {
+    groupName: '分组3',
     nodeType: 2,
     desc: '是否白条',
     slots,
     payload,
   },
   {
+    groupName: '分组2',
     nodeType: 3,
     desc: '是否小金库',
     slots,
     payload,
   },
   {
+    groupName: '分组1',
     nodeType: 4,
     desc: '成功消息',
     payload,
   },
   {
+    groupName: '分组2',
     nodeType: 5,
     desc: '失败消息',
     payload,
   },
   {
+    groupName: '分组2',
     nodeType: 6,
     desc: '异常消息',
     payload,
